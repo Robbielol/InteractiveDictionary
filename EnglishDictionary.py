@@ -2,6 +2,7 @@ import json
 from difflib import  get_close_matches
 data = json.load(open("data.json"))
 
+word = input("What word? ")
 
 def definition(word):
     word = word.lower()
@@ -9,7 +10,7 @@ def definition(word):
         return data[word]
     elif word.title in data:
         return data[word.title]
-    elif word.upper() in data:  # in case user enters words like USA or NATO
+    elif word.upper() in data:
         return data[word.upper()]
     elif len(get_close_matches(word, data.keys())) > 0:
         answer = input("Did you mean %s instead? Enter Y if yes, or N if no: " % get_close_matches(word, data.keys())[0])
@@ -22,10 +23,7 @@ def definition(word):
     else:
         return "The word doesn't exist. Please double check it."
 
-word = input("Select Word: ")
-
 output = definition(word)
-
 if type(output) == list:
     for item in output:
         print(output)
